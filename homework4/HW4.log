@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (preloaded format=xelatex 2020.8.12)  30 OCT 2020 22:35
+This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (preloaded format=xelatex 2020.8.12)  2 NOV 2020 15:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1034,16 +1034,26 @@ Package fontspec Info: Font family 'SimHei(0)' created for font 'SimHei' with
 (fontspec)             <->"SimHei/OT:script=hani;language=dflt;"
 (fontspec)             - 'small caps'  (m/sc) with NFSS spec.: 
 
+
+Overfull \hbox (22.20912pt too wide) detected at line 80
+[][]
+ []
+
 [1
 
-] [2] [3] [4] (./HW4.aux) ) 
+] [2] [3]
+File: pic1.png Graphic file (type bmp)
+<pic1.png>
+File: pic2.png Graphic file (type bmp)
+<pic2.png>
+ [4] [5] [6] (./HW4.aux) ) 
 Here is how much of TeX's memory you used:
- 13256 strings out of 479418
- 295962 string characters out of 5888105
- 627830 words of memory out of 5000000
- 30504 multiletter control sequences out of 15000+600000
+ 13276 strings out of 479418
+ 296187 string characters out of 5888105
+ 627838 words of memory out of 5000000
+ 30520 multiletter control sequences out of 15000+600000
  538216 words of font info for 68 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 62i,12n,100p,904b,564s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 62i,11n,100p,903b,626s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on HW4.pdf (4 pages).
+Output written on HW4.pdf (6 pages).

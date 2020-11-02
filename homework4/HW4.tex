@@ -60,7 +60,7 @@
 		\end{equation*}
 		can be written in the form
 		\begin{equation*}
-			j(w) = \frac{w^wS_Bw}{w^TS_Ww}
+			j(w) = \frac{w^TS_Bw}{w^TS_Ww}
 		\end{equation*}
 		\begin{solution}
 			\begin{equation*}
@@ -69,6 +69,18 @@
 				&=w^T(m_2-m_1)(m_2-m_1)^Tw\\
 				&=w^TS_Bw
 				\end{aligned}
+			\end{equation*}
+			\begin{equation*}
+				\begin{aligned}
+				s_1^2 + s_2 ^2&= \sum_{n \in C_1}(y_n - m_1)^2 + \sum_{k \in C_2}(y_k - m_2)^2\\
+				&=\sum_{n \in C_1}(w^T(x_n - m_1))^2 + \sum_{k \in C_2}(w^T(x_k - m_2))^2\\
+				&=\sum_{n \in C_1}w^T(x_n - m_1)(x_n - m_1)^Tw+\sum_{k \in C_2}w^T(x_k - m_2)(x_k - m_2)^Tw\\
+				&=w^TS_Ww
+				\end{aligned}
+			\end{equation*}
+			Finally, we obtain
+			\begin{equation*}
+				j(w) = \frac{w^TS_Bw}{w^TS_Ww}
 			\end{equation*}
 		\end{solution}
 		
@@ -130,10 +142,66 @@
 		\begin{equation*}
 			\bigtriangledown \mathbb{E}(w)=\sum_{n=1}^{N}(y_n-t_n)\phi_n
 		\end{equation*}
-		\item
-		There are several possible ways in which to generalize the concept of linear discriminant functions from two classes to c classes. One possibility would be to use $(c-1)$ linear discrimminant functions, such that $y_k(x)>0$ for inputs x in class $C_k$ and $y_k(x) < 0$ for not in class $C_k$. By drawing a simple example in two dimensions for $c=3$, show that this approach can lead to regions of x-space for which the classification is ambiguous. Another approach would be to use one discriminant functino $y_{jk}(x)$ for each possible pair of classes $C_j$ and $C_k$, such that $y_{jk}(x) >0$ for patterns in class $C_j$ and $y_{jk}(x) <0$ for patterns in class $C_k$. For c classes, we would need $c(c-1)/2$ discriminant functions. Again, by drawing a specific example in two dimensions for $c=3$, show that this approach can also lead to ambiguous regions.
 		\begin{solution}
-			内容...
+			\begin{equation*}
+				\begin{aligned}
+				\frac{\partial E}{\partial y_n} &= \frac{1-t_n}{1-y_n} - \frac{t_n}{y_n}\\
+				&=\frac{y_n(1-t_n) - t_n (1-y_n)}{(1-y_n)y_n}\\
+				&=\frac{y_n - y_nt_n - t_n + y_nt_n}{(1-y_n)y_n}\\
+				&=\frac{y_n - t_n}{y_n(1-y_n)}
+				\end{aligned}
+			\end{equation*}
+			and use
+			\begin{equation*}
+			\frac{d\sigma}{da}=\sigma(1-\sigma)
+			\end{equation*}
+			we get
+			\begin{equation*}
+				\frac{\partial y_n}{\partial a_n} = \frac{\partial \sigma(a_n)}{\partial a_n} = y_n(1-y_n)				
+			\end{equation*}
+			\begin{equation*}
+				\nabla a_n = \phi_n
+			\end{equation*}
+			Using the chain rule, we obtain
+			\begin{equation*}
+			\begin{aligned}
+				\nabla E &= \sum_{n = 1}^{N} \frac{\partial E}{\partial y_n}\frac{\partial y_n}{\partial a_n}\nabla a_n\\
+				&= \sum_{n = 1}^{N}(y_n - t_n) \phi_n
+			\end{aligned}
+			\end{equation*}
+		\end{solution}
+		\item
+		There are several possible ways in which to generalize the concept of linear discriminant functions from two classes to c classes. One possibility would be to use $(c-1)$ linear discriminant functions, such that $y_k(x)>0$ for inputs x in class $C_k$ and $y_k(x) < 0$ for not in class $C_k$. By drawing a simple example in two dimensions for $c=3$, show that this approach can lead to regions of x-space for which the classification is ambiguous. Another approach would be to use one discriminant functino $y_{jk}(x)$ for each possible pair of classes $C_j$ and $C_k$, such that $y_{jk}(x) >0$ for patterns in class $C_j$ and $y_{jk}(x) <0$ for patterns in class $C_k$. For c classes, we would need $c(c-1)/2$ discriminant functions. Again, by drawing a specific example in two dimensions for $c=3$, show that this approach can also lead to ambiguous regions.
+		\begin{solution}
+			
+			\begin{figure}[htbp]
+				\centering
+				\includegraphics[width = 0.4\textwidth]{pic1.png}
+				\caption{approach1 with c-1 linear discriminant functions}
+				\label{fig:1}
+			\end{figure}
+			\begin{figure}[htbp]
+				\centering
+				\includegraphics[width=0.4\linewidth]{pic2.png}
+				\caption{approach2 with three linear discriminant}
+			\end{figure}
+		As for the approach1, we have two linear discriminant function. and $y_k(x)>0$ for inputs x in class $C_k$ and $y_k(x) < 0$ for not in class $C_k$. But there is still several problem, when $y_1(x)>0$ and $y_2(x)>0$, we can't judge the point belong to $C_1$ or $ C_2 $.
+		
+		As for the approach2, we have the classification as follows:
+		\begin{enumerate}
+			\item
+			If $ y_{12}(x) > 0 $ and $ y_{13}(x) > 0 $, then x $\in$ $ C_1 $
+			\item
+			If $ y_{12}(x) < 0 $ and $ y_{23}(x) > 0 $, then x $\in$ $ C_2 $
+			\item
+			If $ y_{13}(x) < 0 $ and $ y_{23}(x) < 0 $, then x $\in$ $ C_3 $
+		\end{enumerate}
+		The follow regions are still unclassified.
+		\begin{enumerate}
+			\item
+			$y_{12}(x) < 0$ and $y_{13}(x) > 0$.
+			$y_{12}(x) > 0$ and $y_{23}(x) > 0$ and $y_{13} < 0$
+		\end{enumerate}
 		\end{solution}
 		\item
 		Given a set of data points $\{x^n\}$ we can define the convex hull to be the set of points x given by
@@ -142,7 +210,37 @@
 		\end{equation*}
 		where $\alpha_n >=0$ and $\sum_n \alpha_n = 1$. Consider a second set of point $\{z^m\}$and its corresponding convex hull. The two sets of points will be linearly separable if there exists a vector $\hat{w}$ and a scalar $\omega_0$ such that $\hat{w}^Tx^n+\omega_0 >0$ for all $x^n$, and $\hat{w}^Tz^m + \omega_0<0$ for all $z^m$. Show that, if their convex hulls intersect, the two sets of points cannot be linearly separable, and conversely that, if they are linearly separable, their convex hulls do not intersect.
 		\begin{solution}
-			内容...
+			we have
+			\begin{equation*}
+				y(x) = \hat{w}^Tx^n + w_0
+			\end{equation*}
+			\begin{equation*}
+				x = \sum_{n} \alpha_nx^n
+			\end{equation*}
+			then we get
+			\begin{equation*}
+				y(x) = \hat{w}^T(\sum_{n}\alpha_nx_n)+w_0
+			\end{equation*}
+			with $ \sum_{n}\alpha_n = 1 $
+			\begin{equation*}
+				y(x) = \sum_{n}\alpha(\hat{w}^Tx^n+w_0)
+			\end{equation*}
+			Similarly we get
+			\begin{equation*}
+				y(z) = \sum_{m} \beta_m(\hat{w}^Tz^m + w_0)
+			\end{equation*}
+			If the convex hulls intersect, there must be at least one point exist in {x} and {z}. We denote this point as xz. And we get
+			\begin{equation*}
+				y(xz) = \sum_{n}\alpha_n(\hat{w}^T\ xz^n + w_0) = \sum_{m}\beta_m(\hat{w}^T\ xz^m + w_0)
+			\end{equation*}
+			But for linear separability, we have
+			\begin{equation*}
+				\begin{aligned}
+				y(x^n) &= \hat{w}^Tx^n + w_0 > 0\\
+				y(z^m) &= \hat{w}^Tz^m + w_0 > 0
+				\end{aligned}
+			\end{equation*}
+			There is no possible for the above formulations establish simultaneously.
 		\end{solution}
 	\end{enumerate}
 \end{document}
