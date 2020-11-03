@@ -9,6 +9,8 @@ import numpy as np
 from sklearn import svm
 from sklearn.preprocessing import StandardScaler
 from descriptor import Descriptor
+from sklearn.model_selection import train_test_split
+from sklearn import metrics
 
 def processFiles(pos_dir, neg_dir, recurse=False, output_file=False,
         output_filename=None, color_space="bgr", channels=[0, 1, 2],
@@ -157,7 +159,10 @@ def processFiles(pos_dir, neg_dir, recurse=False, output_file=False,
     num_features = len(pos_features[0])
 
     ##TODO: Instantiate scaler and scale features.
-    
+    scaler = StandardScaler()
+    scaler.fit(np.vstack((pos_features,neg_features)))
+    pos_features = scaler.transform(pos_features)
+    neg_features = scaler.transform(neg_features)
 	
 	
 	
@@ -168,14 +173,13 @@ def processFiles(pos_dir, neg_dir, recurse=False, output_file=False,
     print("Shuffling samples into training, cross-validation, and test sets.\n")
     random.shuffle(pos_features)
     random.shuffle(neg_features)
-
+    pos_train, pos_temp = train_test_split(pos_features,test_size = 0.25, random_state = 0)
+    pos_val,pos_test = train_test_split(pos_temp,test_size = 0.2, random_state = 0)
+    neg_train, neg_temp = train_test_split(neg_features, test_size = 0.25, random_state = 0)
+    neg_val,neg_test = train_test_split(neg_temp, test_size = 0.25, random_state = 0)
+	
     # Use pos_train, pos_val, pos_test and neg_train, neg_val, neg_test to represent 
 	# the Train, Validation and Test sets of Positive and Negtive sets.
-	
-	
-	
-	
-
 	
 	
     # Store sample data and parameters in dict.
@@ -254,23 +258,37 @@ def trainSVM(filepath=None, feature_data=None, C=1,
 	##      Use validation sets to adjust your algorithm. 
 	##      Run your classifier on the test sets and output the accuracy, 
 	##      precission, recall and F-1 score.
+    pos_train = feature_data['pos_train']
+    neg_train = feature_data['neg_train']
+    pos_val = feature_data['pos_val']
+    neg_val = feature_data['neg_val']
+    pos_test = feature_data['pos_test']
+    neg_test = feature_data['neg_test']
+    SVC = svm.SVC()
+    X_train = np.vstack((pos_train, neg_train))
+    y_pos_train = np.ones(len(pos_train))
+    y_neg_train = np.zeros(len(neg_train))
+    y_train = np.hstack((y_pos_train,y_neg_train))
+    SVC.fit(X_train,y_train)
 
+    X_test = np.vstack((pos_test,neg_test))
+    y_test_pred = SVC.predict(X_test)
+    y_test_pos = np.ones(len(pos_test))
+    y_test_neg = np.zeros(len(neg_test))
+    y_test = np.hstack((y_test_pos, y_test_neg))
 
-
-	
-	
-	
-	
-	
-
-
+    print('Test Accuarcy of classfier = ',SVC.score(X_test,y_test))
+    print('Test Precision of classfier = ', metrics.precision_score(y_test, y_test_pred) )
+    print('Test recall of classfier = ', metrics.recall_score(y_test, y_test_pred) )
+    print('Test F1-score of classfier = ', metrics.f1_score(y_test, y_test_pred) )
     # Store classifier data and parameters in new dict that excludes
     # sample data from feature_data dict.
     excludeKeys = ("pos_train", "neg_train", "pos_val", "neg_val",
         "pos_test", "neg_test")
     classifier_data = {key: val for key, val in feature_data.items()
         if key not in excludeKeys}
-    classifier_data["classifier"] = ##TODO: complement the assignment state with the object name of your classifier
+    classifier_data["classifier"] = SVC
+    ##TODO: complement the assignment state with the object name of your classifier
 
     if output_file:
         if output_filename is None:

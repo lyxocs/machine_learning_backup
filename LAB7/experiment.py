@@ -4,11 +4,11 @@ from detector import Detector
 
 # Replace these with the directories containing your
 # positive and negative sample images, respectively.
-pos_dir = "samples/vehicles"
-neg_dir = "samples/non-vehicles"
+pos_dir = "LAB7/samples/vehicles"
+neg_dir = "LAB7/samples/non-vehicles"
 
 # Replace this with the path to your test video file.
-video_file = "videos/test_video.mp4"
+video_file = "LAB7/videos/project_video.mp4"
 
 def experiment1():
     """
@@ -30,15 +30,15 @@ def experiment1():
 	##      uncomment the code below.
 	
     # Instantiate a Detector object and load the dict from trainSVM().
-    #detector = Detector().loadClassifier(classifier_data=classifier_data)
+    detector = Detector().loadClassifier(classifier_data=classifier_data)
 
     # Open a VideoCapture object for the video file.
-    #cap = cv2.VideoCapture(video_file)
+    cap = cv2.VideoCapture(video_file)
     
     # Start the detector by supplying it with the VideoCapture object.
     # At this point, the video will be displayed, with bounding boxes
     # drawn around detected objects per the method detailed in README.md.
-    #detector.detectVideo(video_capture=cap)
+    detector.detectVideo(video_capture=cap)
 
 
 #def experiment2
