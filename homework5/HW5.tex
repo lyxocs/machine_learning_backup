@@ -1,0 +1,61 @@
+% Homework template for Inference and Information
+% UPDATE: September 26, 2017 by Xiangxiang
+\documentclass[a4paper]{article}
+\usepackage{ctex}
+\ctexset{
+	proofname = \heiti{Proof}
+}
+\usepackage{amsmath, amssymb, amsthm}
+% amsmath: equation*, amssymb: mathbb, amsthm: proof
+\usepackage{moreenum}
+\usepackage{mathtools}
+\usepackage{url}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{booktabs} % toprule
+\usepackage[mathcal]{eucal}
+\usepackage[thehwcnt = 5]{iidef}
+\usepackage{ragged2e}
+\usepackage{microtype}
+
+\thecourseinstitute{SUSTech}
+\thecoursename{Machine-learning}
+\theterm{Fall 2020}
+\hwname{Homework}
+\slname{\heiti{Solution}}
+\justifying\let\raggedright\justifying
+\begin{document}
+	\courseheader
+	\name{Liu Yuxi}
+	\begin{enumerate}
+		\setlength{\itemsep}{3\parskip}
+		\item
+		Consider a regression problem involving multiple target variables in which it is assumed that the distribution of the targets, conditioned on the input vector x, is a Gaussian of the form
+		\begin{equation*}
+			p(t|x,w) = \mathcal{N}(t|y(x,w),\Sigma)
+		\end{equation*}
+		where $y(x,w)$ is the output of a neural network with input vector $x$ and wight vector $w$, and $\Sigma$ is the covariance of the assumed Gaussian noise on the targets.
+		\begin{enumerate}
+			\item
+			Given a set of independent observations of $x$ and $t$, write down the error function that must be minimized in order to find the maximum likelihood solution for $w$, if we assume that $\Sigma$ is fixed and known.
+			\item
+			Now assume that $\Sigma$ is also to be determined from the data, and write down an expression for the maximum likelihood solution for $\Sigma$.
+		\end{enumerate}
+		\item
+		The error function for binary classification problems was derived for a network having a logistic-sigmoid output activation function, so that $ 0\leq y(x,w) \leq 1$, and data having target values $t \in \{0,1\}$. Derive the corresponding error function if we consider a network having an output $-1 \leq y(x,w) \leq 1 $ and target values $t = 1$ for class $C_1$ and $t = -1 $ for class $C_2$. What would be the appropriate choice of output unit activation function?
+		\item
+		Verify the followint results for the conditional mean and variance of the mixture density network model.
+		\begin{enumerate}
+			\item
+		\end{enumerate}
+	\end{enumerate}
+\end{document}
+\begin{equation}
+\end{equation}
+
+%%% Local Variables:
+%%% mode: late\rvx
+%%% TeX-master: t
+%%% End:
